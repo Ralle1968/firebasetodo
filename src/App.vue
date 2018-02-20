@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar />
     <Sidebar />
-    <div class="container">
+    <div id="main" class="container">
       <router-view/>
     </div>
     <Footer />
