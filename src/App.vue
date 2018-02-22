@@ -3,7 +3,7 @@
     <Navbar />
     <Sidebar />
     <div id="main" class="container">
-      <router-view/>
+      <router-view />
     </div>
     <Footer />
   </div>

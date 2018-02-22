@@ -28,37 +28,42 @@ import db from './firebaseInit'
       return {
         todos:[],
         id: null ,
-        todo_checked: null
+        todo_checked: null,
+       
       }
     },
     created(){
-    db.collection('todos').orderBy('todo_time').get().then(querySnapshot =>{
-      querySnapshot.forEach(doc =>{
-        const data = {
-          'id': doc.id,
-          'todo_id': doc.data().todo_id,
-          'todo_category': doc.data().todo_category,
-          'todo_checked': doc.data().todo_checked,
-          'todo_title': doc.data().todo_title,
-          'todo_time': doc.data().todo_time.toLocaleString('de-DE')
-        }
-        this.todos.push(data)
-      })
-    })
+      this.fetchData()
     },
     methods:{
+      fetchData(){
+        db.collection('todos').orderBy('todo_time').get().then(querySnapshot =>{
+          querySnapshot.forEach(doc =>{
+            const data = {
+              'id': doc.id,
+              'todo_id': doc.data().todo_id,
+              'todo_category': doc.data().todo_category,
+              'todo_checked': doc.data().todo_checked,
+              'todo_title': doc.data().todo_title,
+              'todo_time': doc.data().todo_time.toLocaleString('de-DE')
+            }
+            this.todos.push(data)
+          })
+        })
+      },
+
       updateStatus(ID, sta){
         console.log(ID)
         console.log(sta)        
         db.collection('todos').doc(ID).update({
         todo_checked: sta
-          })
-          .then(()=>{
-            alert("Success!!")
-          })
-        } 
-      
-      
+        })
+        .then(()=>{
+          alert("Success!!")
+          this.todos = []
+          this.fetchData()
+        })
+      } 
     }
   }
 </script>
