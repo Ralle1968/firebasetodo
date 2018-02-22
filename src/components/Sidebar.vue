@@ -2,7 +2,7 @@
 <div>
   <ul id="slide-out" class="side-nav fixed">
     <div id="logo" class="center-align">
-      <img src="@/assets/logo.png" alt="LOGO">
+      <img src="static/images/logo.jpg" alt="LOGO">
     </div>
     <li><router-link to="/">Ralfs ToDo-List</router-link></li>
     <li><router-link to="/einkauf">Einkaufsliste</router-link></li>
