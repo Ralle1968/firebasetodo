@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <Navbar />
-    <Sidebar />
     <div id="main" class="container">
+      <div class="row">
       <router-view />
+      </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -16,9 +16,7 @@ import Footer from './components/Footer'
 export default {
   name: 'App',
   components: {
-    Navbar,
-    Sidebar,
-    Footer
+    Navbar
   }
 }
 </script>

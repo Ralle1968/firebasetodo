@@ -1,21 +1,10 @@
-nav, #main, footer {
-  padding-left: 250px;
+nav {
+  text-shadow: 1px 1px 1px #000;
 }
 
-.page-footer {
-  padding-top: 0px!important;
+h3.flow-text {
+  font-weight: 600;
 }
 
 
-@media only screen and (max-width : 992px) {
-  nav, #main, footer {
-    padding-left: 0;
-  }
 
-  .material-icons{
-    font-size: 44px!important;
-    padding-left: 30px!important;
-    padding-right: 10px!important;
-  }
-  
-}

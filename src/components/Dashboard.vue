@@ -1,6 +1,6 @@
 <template>
-  <div id="dashboard">
-    <ul class="collection with-header">
+  <div id="dashboard" class="">
+    <ul class="collection with-header col s6">
       <li class="collection-header"><h4>Todos</h4></li>
       <li v-for="todo in todos" 
       v-bind:key="todo.id" 
@@ -17,19 +17,15 @@
       </p>
       </li>
     </ul>
-    <div class="card horizontal">
-      <div class="card-image">
-        <img src="https://lorempixel.com/100/190/nature/6">
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <p>I am a very simple card. I am good at containing small bits of information.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-    </div>
+   <div id="sidebar" class="col s3 offset-s2">
+  <label>Bitte Kategorie wählen</label>
+    <select class="browser-default" v-model="selected">
+      <option value="" disabled selected>Kategorie wählen</option>
+      <option v-for="todo in todos" 
+      v-bind:key="todo.id">{{todo.todo_category}}</option>
+    </select>
+  <p>Gewählt: {{selected}}</p>
+</div>
   </div>
 </template>
 
@@ -42,7 +38,7 @@ import db from './firebaseInit'
         todos:[],
         id: null ,
         todo_checked: null,
-       
+        selected:''
       }
     },
     created(){
@@ -75,6 +71,7 @@ import db from './firebaseInit'
           alert("Success!!")
           this.todos = []
           this.fetchData()
+        
         })
       } 
     }
