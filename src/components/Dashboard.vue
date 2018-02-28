@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard" class="">
-    <ul class="collection with-header col s6">
+    <ul class="collection with-header col s12 m8 l8">
       <li class="collection-header"><h4 class="flow-text">Zu erledigen: <span class="right flow-text"><small>{{selected}}</small></span></h4></li>
       <li v-for="todo in todos" 
       v-bind:key="todo.id" 
@@ -17,13 +17,18 @@
       </p>
       </li>
     </ul>
-   <div id="sidebar" class="col s5 offset-s1">
+   <div id="sidebar" class="col s12 m3 offset-m1 l3 offset-l1">
      <br>
-    <select class="browser-default" v-model="selected">
+    <select distinct class="browser-default" v-model="selected">
       <option value="Alle Kategorien">Alle Kategorien</option>
-      <option v-for="todo in todos" 
-      v-bind:key="todo.id">{{todo.todo_category}}</option>
+      <option v-for="category in categories" 
+      v-bind:key="category.id">{{category.todo_category}}</option>
     </select>
+    </div>
+    <div class="fixed-action-btn">
+      <router-link to="/new" class="btn-floating btn-large red">
+        <i class="fa fa-plus"></i>
+      </router-link>
     </div>
   </div>
 </template>
@@ -38,12 +43,15 @@ import db from './firebaseInit'
         todos:[],
         id: null ,
         todo_checked: null,
-        selected:'Alle Kategorien'
+        selected:'Alle Kategorien',
+        categoriesRaw: [],
+        categories: []
       }
     },
 
     created(){
       this.fetchAllData()
+      this.fetchAllCategories()
     },
 
     watch: {
@@ -69,12 +77,31 @@ import db from './firebaseInit'
         })
       },
 
+      fetchAllCategories(){
+        db.collection('todos').get().then(querySnapshot =>{
+          querySnapshot.forEach(doc =>{
+            const data = {
+              'todo_category': doc.data().todo_category
+            }
+            this.categoriesRaw.push(data)
+            this.categories = this.uniqueArray(this.categoriesRaw, 'todo_category')
+            console.log(this.categories)
+          })
+        })
+      },
+      // Delete all double entrys in array
+      uniqueArray (arrayOfObj, key) { 
+        return arrayOfObj.filter((item, index, array) => 
+        { return array.map((mapItem) => mapItem[key]).indexOf(item[key]) === index }) 
+      }, 
+
       fetchSelectedData(sel){
         alert(sel)
         if (sel=='Alle Kategorien') {
           this.todos = []
           this.fetchAllData()
         } else {
+          this.todos = []
           db.collection('todos').where('todo_category', '==', sel).get().then(querySnapshot =>{
             querySnapshot.forEach(doc =>{
               const data = {
@@ -85,7 +112,7 @@ import db from './firebaseInit'
                 'todo_title': doc.data().todo_title,
                 'todo_time': doc.data().todo_time.toLocaleString('de-DE')
               }
-              this.todos = []
+              
               this.todos.push(data)
             })
           })

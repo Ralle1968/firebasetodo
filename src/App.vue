@@ -13,10 +13,12 @@
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Footer from './components/Footer'
+import NewTodo from './components/NewTodo'
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    NewTodo
   }
 }
 </script>
