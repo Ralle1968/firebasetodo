@@ -1,11 +1,25 @@
 <template>
-  <div id="dashboard" class="">
-    <ul class="collection with-header col s12 m8 l8">
-      <li class="collection-header"><h4 class="flow-text">Zu erledigen: <span class="right flow-text"><small>{{selected}}</small></span></h4></li>
+  <div id="dashboard" class="row">
+    <ul class="collection with-header col s12 m12 l12">
+      <li class="collection-header"><h4 class="flow-text">Zu erledigen: 
+        <span class="right flow-text">
+          <small>
+            <select class="browser-default" v-model="selected">
+              <option value="Alle Kategorien">Alle Kategorien</option>
+              <option v-for="category in categories" 
+              v-bind:key="category.id">{{category.todo_category}}</option>
+            </select>
+          </small>  
+        </span></h4></li>
       <li v-for="todo in todos" 
       v-bind:key="todo.id" 
       class="collection-item">
-      <div class="chip">{{todo.todo_category}}</div>
+      <div>
+        <div class="chip">{{todo.todo_category}}</div> 
+          <label v-if="todo.todo_checked" v-bind:for="todo.todo_id">
+            <i class="small material-icons right">cancel</i>
+          </label>
+        </div>
       <h5>{{todo.todo_title}}</h5>
       <p>
       <input type="checkbox" class="filled-in" v-bind:id="todo.todo_id" v-bind:checked="todo.todo_checked" @click="updateStatus(todo.id, !todo.todo_checked)"/>
@@ -17,16 +31,8 @@
       </p>
       </li>
     </ul>
-   <div id="sidebar" class="col s12 m3 offset-m1 l3 offset-l1">
-     <br>
-    <select distinct class="browser-default" v-model="selected">
-      <option value="Alle Kategorien">Alle Kategorien</option>
-      <option v-for="category in categories" 
-      v-bind:key="category.id">{{category.todo_category}}</option>
-    </select>
-    </div>
     <div class="fixed-action-btn">
-      <router-link to="/new" class="btn-floating btn-large red">
+      <router-link to="/new" class="btn-floating btn-large teal tooltipped" data-position="top" data-delay="50" data-tooltip="Neue Aufgabe erstellen">
         <i class="fa fa-plus"></i>
       </router-link>
     </div>
@@ -62,7 +68,7 @@ import db from './firebaseInit'
 
     methods:{
       fetchAllData(){
-        db.collection('todos').orderBy('todo_time').get().then(querySnapshot =>{
+        db.collection('todos').orderBy('todo_id').get().then(querySnapshot =>{
           querySnapshot.forEach(doc =>{
             const data = {
               'id': doc.id,
