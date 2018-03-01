@@ -15,7 +15,7 @@ nav img {
 @media (min-width: 1500px){
   .collection .collection-item {
     border-bottom: 0 !important;
-    float: left !important;
+    display: inline-grid !important;
     width: 25% !important;
   }
 
@@ -27,7 +27,7 @@ nav img {
 @media (min-width: 901px) and (max-width: 1499px){
   .collection .collection-item {
     border-bottom: 0 !important;
-    float: left !important;
+    display: inline-grid !important;
     width: 33% !important;
   }
 
@@ -39,7 +39,7 @@ nav img {
 @media (min-width: 401px) and (max-width: 900px){
   .collection .collection-item {
     border-bottom: 0 !important;
-    float: left !important;
+    display: inline-grid !important;
     width: 50% !important;
   }
 
