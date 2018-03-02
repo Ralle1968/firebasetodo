@@ -22,6 +22,12 @@ nav img {
   select {
     margin-top: -10px !important;
   }
+
+  .card {
+    margin: .5rem 1rem 1rem 0 !important;
+    width: 22%;
+    display: inline-grid;
+  }
 }
 
 @media (min-width: 901px) and (max-width: 1499px){
@@ -34,9 +40,15 @@ nav img {
   select {
     margin-top: -10px !important;
   }
+
+  .card {
+    margin: .5rem 1rem 1rem 0 !important;
+    width: 31%;
+    display: inline-grid;
+  }
 }
 
-@media (min-width: 401px) and (max-width: 900px){
+@media (min-width: 500px) and (max-width: 900px){
   .collection .collection-item {
     border-bottom: 0 !important;
     display: inline-grid !important;
@@ -46,9 +58,15 @@ nav img {
   select {
     margin-top: -10px !important;
   }
+
+  .card {
+    margin: .5rem 1rem 1rem 0 !important;
+    width: 47%;
+    display: inline-grid;
+  }
 }
 
-@media (max-width: 400px){
+@media (max-width: 499px){
   nav img {
     width: 40px !important;
     margin-top: 9px !important;

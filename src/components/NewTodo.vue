@@ -21,11 +21,18 @@
             <label>Kategorie</label>
          </div>
         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" v-model="todo_info" required>
+            <label>Beschreibung</label>
+         </div>
+        </div>
         
         <button type="submit" class="btn">Submit</button>
         <router-link to="/" class="btn grey">Cancel</router-link>
       </form>
     </div>
+    
   </div>
 </template>
 
@@ -39,6 +46,7 @@ export default {
       todo_title: null,
       todo_category: null,
       todo_checked: false,
+      todo_info: null,
       todo_time: new Date()
     }
   },
@@ -49,6 +57,7 @@ export default {
         todo_title: this.todo_title,
         todo_category: this.todo_category,
         todo_checked: this.todo_checked,
+        todo_info: this.todo_info,
         todo_time: this.todo_time
       })
       .then(docRef => this.$router.push('/'))

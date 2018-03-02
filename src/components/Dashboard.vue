@@ -1,41 +1,64 @@
 <template>
   <div id="dashboard" class="row">
-    <ul class="collection with-header col s12 m12 l12">
-      <li class="collection-header"><h4 class="flow-text">Zu erledigen: 
-        <span class="right flow-text">
-          <small>
-            <select class="browser-default" v-model="selected">
-              <option value="Alle Kategorien">Alle Kategorien</option>
-              <option v-for="category in categories" 
-              v-bind:key="category.id">{{category.todo_category}}</option>
-            </select>
-          </small>  
-        </span></h4></li>
-      <li v-for="todo in todos" 
-      v-bind:key="todo.id" 
-      class="collection-item">
-      <div>
-        <div class="chip">{{todo.todo_category}}</div> 
-          <label v-if="todo.todo_checked" v-bind:for="todo.todo_id">
-            <i class="small material-icons right">cancel</i>
-          </label>
+    <br>
+    <div class="col s12">
+      <span class="right flow-text">
+      <small>
+          <select class="browser-default" v-model="selected">
+            <option value="Alle Kategorien">Alle Kategorien</option>
+            <option v-for="category in categories" 
+            v-bind:key="category.id">{{category.todo_category}}</option>
+          </select>
+        </small>  
+      </span>
+      <br>
+      <br>
+      <div class="row">
+      <div class="card darken-4" v-for="todo in todos" 
+      v-bind:key="todo.id">
+        <div class="card-content">
+          <div>
+            <div class="chip">{{todo.todo_category}}</div>
+            <label v-if="todo.todo_checked" v-bind:for="todo.todo_id">
+              <i class="small material-icons right">cancel</i>
+            </label>
+          </div>
+          <br>
+          <br>
+          <span class="card-title">{{todo.todo_title}}</span>
+          <p>
+            <input type="checkbox" class="filled-in" v-bind:id="todo.id" v-bind:checked="todo.todo_checked" @click="updateStatus(todo.id, !todo.todo_checked)"/>
+            <label v-if="todo.todo_checked" v-bind:for="todo.id">Erledigt!</label>
+            <label v-else v-bind:for="todo.id">Noch offen ...</label>
+          </p>
+          <br>
+          <hr>
+          <span class="card-title activator grey-text text-darken-4"><small>Infos</small> <i class="material-icons right">more_vert</i><br></span>
+      
         </div>
-      <h5>{{todo.todo_title}}</h5>
-      <p>
-      <input type="checkbox" class="filled-in" v-bind:id="todo.todo_id" v-bind:checked="todo.todo_checked" @click="updateStatus(todo.id, !todo.todo_checked)"/>
-      <label v-if="todo.todo_checked" v-bind:for="todo.todo_id">Erledigt!</label>
-      <label v-else v-bind:for="todo.todo_id">Noch offen ...</label>
-    </p>
-      <p>ID: {{todo.todo_id}} <br>
-         Time: {{todo.todo_time}}
-      </p>
-      </li>
-    </ul>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">{{todo.todo_title}}<i class="material-icons right">close</i></span>
+          <p> Kategorie: {{todo.todo_category}}
+            <br>
+            <br>  
+              ID: {{todo.id}} <br>
+              Erstellt am: {{todo.todo_time}}
+              <br>
+              <br>
+              Beschreibung: {{todo.todo_info}} 
+          </p>
+        </div>
+        </div>
+      </div>
+</div>
+  
+
     <div class="fixed-action-btn">
-      <router-link to="/new" class="btn-floating btn-large teal tooltipped" data-position="top" data-delay="50" data-tooltip="Neue Aufgabe erstellen">
+      <router-link to="/new" class="btn-floating btn-large teal">
         <i class="fa fa-plus"></i>
       </router-link>
     </div>
+  
   </div>
 </template>
 
@@ -76,6 +99,7 @@ import db from './firebaseInit'
               'todo_category': doc.data().todo_category,
               'todo_checked': doc.data().todo_checked,
               'todo_title': doc.data().todo_title,
+              'todo_info': doc.data().todo_info,
               'todo_time': doc.data().todo_time.toLocaleString('de-DE')
             }
             this.todos.push(data)
@@ -116,6 +140,7 @@ import db from './firebaseInit'
                 'todo_category': doc.data().todo_category,
                 'todo_checked': doc.data().todo_checked,
                 'todo_title': doc.data().todo_title,
+                'todo_info': doc.data().todo_info,
                 'todo_time': doc.data().todo_time.toLocaleString('de-DE')
               }
               
