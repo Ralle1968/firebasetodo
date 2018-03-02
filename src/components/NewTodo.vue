@@ -5,12 +5,6 @@
       <form @submit.prevent="saveTodo" class="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <input type="text" v-model="todo_id" required>
-            <label>Aufgabe ID#</label>
-         </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
             <input type="text" v-model="todo_title" required>
             <label>Titel</label>
          </div>
@@ -42,7 +36,6 @@ export default {
   name: 'new-todo',
   data () {
     return {
-      todo_id: null,
       todo_title: null,
       todo_category: null,
       todo_checked: false,
@@ -53,7 +46,6 @@ export default {
   methods: {
     saveTodo(){
       db.collection('todos').add({
-        todo_id: this.todo_id,
         todo_title: this.todo_title,
         todo_category: this.todo_category,
         todo_checked: this.todo_checked,

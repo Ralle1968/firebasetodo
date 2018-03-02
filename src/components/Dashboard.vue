@@ -19,8 +19,8 @@
         <div class="card-content">
           <div>
             <div class="chip">{{todo.todo_category}}</div>
-            <label v-if="todo.todo_checked" v-bind:for="todo.todo_id">
-              <i class="small material-icons right">cancel</i>
+            <label v-if="todo.todo_checked" v-bind:for="todo.id" @click="deleteTodo(todo.id)">
+              <i id="cancel" class="small material-icons right">cancel</i>
             </label>
           </div>
           <br>
@@ -91,11 +91,10 @@ import db from './firebaseInit'
 
     methods:{
       fetchAllData(){
-        db.collection('todos').orderBy('todo_id').get().then(querySnapshot =>{
+        db.collection('todos').orderBy('todo_time').get().then(querySnapshot =>{
           querySnapshot.forEach(doc =>{
             const data = {
               'id': doc.id,
-              'todo_id': doc.data().todo_id,
               'todo_category': doc.data().todo_category,
               'todo_checked': doc.data().todo_checked,
               'todo_title': doc.data().todo_title,
@@ -136,14 +135,12 @@ import db from './firebaseInit'
             querySnapshot.forEach(doc =>{
               const data = {
                 'id': doc.id,
-                'todo_id': doc.data().todo_id,
                 'todo_category': doc.data().todo_category,
                 'todo_checked': doc.data().todo_checked,
                 'todo_title': doc.data().todo_title,
                 'todo_info': doc.data().todo_info,
                 'todo_time': doc.data().todo_time.toLocaleString('de-DE')
               }
-              
               this.todos.push(data)
             })
           })
@@ -160,9 +157,23 @@ import db from './firebaseInit'
           alert("Success!!")
           this.todos = []
           this.fetchAllData()
-        
         })
-      } 
+      },
+
+      deleteTodo(ID){
+        if(confirm('Are you sure?')) {
+          db.collection('todos').doc(ID).delete().then(() => {
+              alert("Delete!!")
+                this.todos = []
+                this.fetchAllData()
+                this.categoriesRaw = []
+                this.fetchAllCategories() 
+          }).catch(function(error) {
+              console.error("Error removing document: ", error)
+          })
+        }  
+      }
+       
     }
   }
 </script>

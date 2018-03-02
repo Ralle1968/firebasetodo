@@ -6,6 +6,10 @@ h3.flow-text {
   font-weight: 600;
 }
 
+#cancel {
+  cursor: pointer;
+}
+
 nav img {
   width: 50px;
   margin-top: 9px;
