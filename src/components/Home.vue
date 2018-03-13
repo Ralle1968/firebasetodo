@@ -65,7 +65,7 @@
 <script>
 import db from './firebaseInit'
   export default {
-    name: 'dashboard',
+    name: 'home',
 
     data (){
       return {
