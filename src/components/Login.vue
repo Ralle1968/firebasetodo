@@ -46,7 +46,10 @@ import firebase from 'firebase'
           .then(
             user =>{
               alert(`You are logged in as ${user.email}`)
-              this.$router.push('/');
+              let wat= this.$router.go({path: this.$router.path});
+              alert(wat)
+
+              this.$router.go({path: this.$router.path});
             }, 
             err => {
               alert(err.message);

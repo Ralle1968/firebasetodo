@@ -10,6 +10,7 @@ import firebase from 'firebase'
 Vue.use(Router)
 
 let router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -73,7 +74,7 @@ router.beforeEach((to, from, next) => {
      if (firebase.auth().currentUser) {
       //Go to login
       next({
-        path:'/login',
+        path:'/',
         query: {
           redirect: to.fullPath
         }

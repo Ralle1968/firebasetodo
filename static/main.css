@@ -1,19 +1,6 @@
-/* nav {
-  text-shadow: 1px 1px 1px #000;
-} */
-
-/* .container  {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+html{
+  background: #efefef;
 }
-
-.container .row {
-  margin: 0 auto;
-} */
 
 h3.flow-text {
   font-weight: 600;
@@ -45,6 +32,11 @@ nav img {
     width: 22%;
     display: inline-grid;
   }
+
+  nav .brand-logo {
+    font-size: 1.8rem !important;
+    font-weight: 500 !important;
+  }
 }
 
 @media (min-width: 901px) and (max-width: 1499px){
@@ -62,6 +54,11 @@ nav img {
     margin: .5rem 1rem 1rem 0 !important;
     width: 31%;
     display: inline-grid;
+  }
+
+  nav .brand-logo {
+    left: 37% !important;
+    font-weight: 500 !important;
   }
 }
 
@@ -81,6 +78,12 @@ nav img {
     width: 47%;
     display: inline-grid;
   }
+
+  nav .brand-logo {
+    left: 37% !important;
+    font-weight: 500 !important;
+    font-size: 22px !important;
+  }
 }
 
 @media (max-width: 499px){
@@ -95,6 +98,17 @@ nav img {
 
   select {
     margin-top: -15px !important;
+  }
+
+  nav .brand-logo {
+    left: 37% !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin-top: 18px !important;
+}
+
+  nav ul a {
+    padding: 0 6px !important;
   }
 }
 

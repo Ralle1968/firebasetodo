@@ -4,12 +4,13 @@
     <div class="nav-wrapper teal">
       <div class="container">
         <img src="/static/images/logo.png" alt="Application-Logo">
-        <router-link to="/" class="brand-logo"><h3 class="flow-text">Ralfs Listenplaner</h3></router-link>
+        <h4 v-if="!isLoggedIn" class="flow-text brand-logo">Ralfs Listenplaner</h4>
         <ul class="right">
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-          <li><router-link to="/register">Register</router-link></li>
-          <li><button v-on:click="logout" class="btn black">Logout</button></li>
+          <li v-if="isLoggedIn">User: {{ currentUser }}</li>
+          <!-- <li v-if="isLoggedIn"><router-link to="/">Home</router-link></li> -->
+          <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+          <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
+          <li v-if="isLoggedIn"><i v-on:click="logout" class="material-icons prefix">email</i></li>
         </ul>
       </div>
     </div>
@@ -27,13 +28,19 @@
         currentUser: false
       }
     },
+    created() {
+      if (firebase.auth().currentUser) {
+        this.isLoggedIn = true;
+        this.currentUser = firebase.auth().currentUser.email;
+      }
+    },
     methods: {
       logout: function() {
         firebase
           .auth()
           .signOut()
           .then(() =>{
-            this.$router.push('/login');
+            this.$router.go({path: this.$router.path});
           });
       }
     }
